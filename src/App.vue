@@ -1,32 +1,65 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="main_wrap">
+      <img src="./assets/images/banner.png" />
+      <div class="menu">
+        <el-button type="success" class="btn" style="margin-left:15px" @click="$router.push('/')">商品列表</el-button>
+
+        <el-button type="success" @click="$router.push('/list')">购物车 ({{sss}})</el-button>
+      </div>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+<script>
+export default {
+  data(){
+    return{
+      all: this.$store.state.list,
+      allcount:0
+    }
+  },
+  created(){
+    console.log(this.$store.state.list)
+  },
+  methods:{
+
+  },
+  computed:{
+    sss(){
+      let allCounts=0
+      // console.log(this.$store.state.list)
+      if(this.$store.state.list.length>0){
+        // return allCounts
+        this.$store.state.list.forEach(element => {
+          allCounts+=element.count
+        });
+
+      }
+      return allCounts
+    }
+  }
+}
+</script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.main_wrap {
+  width: 900px;
+  margin: 0px auto;
 }
-
-#nav {
-  padding: 30px;
+img {
+  width: 100%;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.menu {
+  width: 900px;
+  height: 60px;
+  margin: 10px auto;
+  background-color: #d9eeec;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn {
+  margin-left: 15px;
 }
 </style>
